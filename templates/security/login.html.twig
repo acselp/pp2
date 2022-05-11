@@ -3,40 +3,117 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="sign section--bg" data-bg="img/section/section.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sign__content">
+                        <!-- authorization form -->
+
+
+
+
+
+                        <form action="#" class="sign__form" method="POST">
+                            <a href="/" class="sign__logo">
+                                <img src="./assets/img/logo.svg" alt="">
+                            </a>
+
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="sign__group">
+                                <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="sign__input" autocomplete="email" required autofocus>
+                            </div>
+
+                            <div class="sign__group">
+                                <input type="password" placeholder="Password" name="password" id="inputPassword" class="sign__input" autocomplete="current-password" required>
+                            </div>
+
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            <div class="sign__group sign__group--checkbox">
+                                <input id="remember" name="remember" type="checkbox" checked="checked">
+                                <label for="remember">Remember Me</label>
+                            </div>
+
+                            <button class="sign__btn" type="submit">
+                                Sign in
+                            </button>
+
+                            <span class="sign__text">Don't have an account? <a href="/register">Sign up!</a></span>
+
+                            <span class="sign__text"><a href="#">Forgot password?</a></span>
+                        </form>
+
+                        <!-- end authorization form -->
+
+
+
+
+
+
+
+{#<form method="post">#}
+
+
+
+
+{#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>#}
+{#    <label for="inputEmail">Email</label>#}
+
+{#    <label for="inputPassword">Password</label>#}
+
+
+{#        <input type="hidden" name="_csrf_token"#}
+{#               value="{{ csrf_token('authenticate') }}"#}
+{#        >#}
+
+{#    #}{##}
+{#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
+{#        See https://symfony.com/doc/current/security/remember_me.html#}
+
+{#        <div class="checkbox mb-3">#}
+{#            <label>#}
+{#                <input type="checkbox" name="_remember_me"> Remember me#}
+{#            </label>#}
+{#        </div>#}
+{#    #}
+
+
+{#</form>#}
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
+    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+
+
+
+
+
+
 {% endblock %}

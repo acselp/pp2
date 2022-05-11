@@ -20,7 +20,7 @@ class IndexController extends AbstractController
     {
         $res = $this->moviesRepo->getAllWithJoin();
         $movies = array();
-        //dd($res);
+        dd($res);
         foreach ($res as $r) {
             $movies[] = $r;
         }

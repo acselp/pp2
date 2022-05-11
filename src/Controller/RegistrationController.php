@@ -11,11 +11,14 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -27,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(MailerInterface $mailer, Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -45,21 +48,56 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('mail_bot_flix@mail.ru', 'Flix Mail Bot'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
+//            // generate a signed url and email it to the user
+//            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+//                (new TemplatedEmail())
+//                    ->from(new Address('mail_bot_flix@mail.ru', 'Flix Mail Bot'))
+//                    ->to($user->getEmail())
+//                    ->subject('Please Confirm your Email')
+//                    ->htmlTemplate('registration/confirmation_email.html.twig')
+//            );
+//            // do anything else you need here, like send an email
+//
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+
+//            $signatureComponents = $verifyEmailHelper->generateSignature(
+//                'app_verify_email',
+//                $user->getId(),
+//                $user->getEmail(),
+//                ['id' => $user->getId()]
+//            );
+//
+//            return $userAuthenticator->authenticateUser(
+//                $user,
+//                $authenticator,
+//                $request
+//            );
+
+//            $signatureComponents = $verifyEmailHelper->generateSignature(
+//                'app_verify_email',
+//                $user->getId(),
+//                $user->getEmail(),
+//                ['id' => $user->getId()]
+//            );
+
+//            $this->addFlash('success', 'Confirm your email at: '.$signatureComponents->getSignedUrl());
+//
+//            $email = (new Email())
+//                ->from('flix.mail.bot@gmail.com')
+//                ->to('virgiliu.plesca@iis.utm.md')
+//                //->cc('cc@example.com')
+//                //->bcc('bcc@example.com')
+//                //->replyTo('fabien@example.com')
+//                //->priority(Email::PRIORITY_HIGH)
+//                ->subject('Time for Symfony Mailer!')
+//                ->text('Test eeeey')
+//                ->html('<p>See Twig integration for better HTML integration!</p>');
+//
+//            $mailer->send($email);
+
+            return $this->redirectToRoute('app_index');
+
+
         }
 
         return $this->render('registration/register.html.twig', [

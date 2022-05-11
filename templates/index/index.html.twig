@@ -31,9 +31,11 @@
 
                 <div class="col-12">
                     <div class="owl-carousel home__carousel">
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            User is logged
-                        {% endif %}
+{#                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                            User is logged#}
+{#                        {% else %}#}
+{#                            User is not logged#}
+{#                        {% endif %}#}
 
                          {% for movie in movies %}
 

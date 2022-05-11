@@ -35,7 +35,9 @@
             {{ include('blocks/header.html.twig') }}
         {% endblock %}
 
-
+        {% for flash in app.flashes('success') %}
+            <div class="alert alert-success">{{ flash }}</div>
+        {% endfor %}
 
         {% block body %}{% endblock %}
 
