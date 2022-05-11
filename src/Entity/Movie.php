@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Movie
 {
+
+    public function __construct()
+    {
+        $this->setActive(1);
+    }
     /**
      * @var int
      *
@@ -206,6 +211,22 @@ class Movie
         $this->age_restriction = $age_restriction;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AgeRestriction;
+use App\Entity\Country;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Quality;
@@ -46,5 +47,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Genre', '', Genre::class),
                 MenuItem::linkToCrud('Age restriction', '', AgeRestriction::class)
             ]);
+
+        yield MenuItem::linkToCrud('Countries', 'fa fa-map-marker', Country::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AgeRestriction;
+use App\Entity\Country;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Quality;
@@ -81,7 +82,8 @@ class MovieRepository extends ServiceEntityRepository
             ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
             ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
             ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
-            ->select('m, q, a, g')
+            ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+            ->select('m, q, a, g, c')
             ->where('m.active = 1 AND m.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
