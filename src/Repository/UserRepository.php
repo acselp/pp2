@@ -2,6 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\AgeRestriction;
+use App\Entity\Genre;
+use App\Entity\Quality;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

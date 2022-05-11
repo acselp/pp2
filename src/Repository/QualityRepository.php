@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Genre;
+use App\Entity\Quality;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Genre>
+ * @extends ServiceEntityRepository<Quality>
  *
- * @method Genre|null find($id, $lockMode = null, $lockVersion = null)
- * @method Genre|null findOneBy(array $criteria, array $orderBy = null)
- * @method Genre[]    findAll()
- * @method Genre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Quality|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Quality|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Quality[]    findAll()
+ * @method Quality[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GenreRepository extends ServiceEntityRepository
+class QualityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Genre::class);
+        parent::__construct($registry, Quality::class);
     }
 
-    public function add(Genre $entity, bool $flush = false): void
+    public function add(Quality $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GenreRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Genre $entity, bool $flush = false): void
+    public function remove(Quality $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -38,7 +38,6 @@ class GenreRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 
     public function getAll(): array
     {
@@ -50,24 +49,24 @@ class GenreRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Genre[] Returns an array of Genre objects
+//     * @return Quality[] Returns an array of Quality objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
+//        return $this->createQueryBuilder('q')
+//            ->andWhere('q.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
+//            ->orderBy('q.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Genre
+//    public function findOneBySomeField($value): ?Quality
 //    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
+//        return $this->createQueryBuilder('q')
+//            ->andWhere('q.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

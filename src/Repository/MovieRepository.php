@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AgeRestriction;
 use App\Entity\Genre;
 use App\Entity\Movie;
+use App\Entity\Quality;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -58,6 +60,42 @@ class MovieRepository extends ServiceEntityRepository
         //dd($movies);
         return $movies;
     }
+
+
+
+    public function getAll(): array
+    {
+        return $this->createQueryBuilder('g')
+            ->select('g.title', 'g.id', 'g.active')
+            ->where('g.active = 1')
+            ->getQuery()
+            ->execute();
+    }
+
+
+
+    public function getOneWithJoin($id): array
+    {
+        $movies = $this->createQueryBuilder('m')
+
+            ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+            ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+            ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+            ->select('m, q, a, g')
+            ->where('m.active = 1 AND m.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getScalarResult();
+
+//        $res = array();
+//
+//        for ($i = 0; $i < sizeof($movies); $i += 2) {
+//            $res[] = array_merge($movies[$i], $movies[$i + 1]);
+//        }
+        //dd($movies);
+        return $movies;
+    }
+
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */

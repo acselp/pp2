@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Genre;
+use App\Entity\AgeRestriction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Genre>
+ * @extends ServiceEntityRepository<AgeRestriction>
  *
- * @method Genre|null find($id, $lockMode = null, $lockVersion = null)
- * @method Genre|null findOneBy(array $criteria, array $orderBy = null)
- * @method Genre[]    findAll()
- * @method Genre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AgeRestriction|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AgeRestriction|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AgeRestriction[]    findAll()
+ * @method AgeRestriction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GenreRepository extends ServiceEntityRepository
+class AgeRestrictionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Genre::class);
+        parent::__construct($registry, AgeRestriction::class);
     }
 
-    public function add(Genre $entity, bool $flush = false): void
+    public function add(AgeRestriction $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GenreRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Genre $entity, bool $flush = false): void
+    public function remove(AgeRestriction $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -50,24 +50,24 @@ class GenreRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Genre[] Returns an array of Genre objects
+//     * @return AgeRestriction[] Returns an array of AgeRestriction objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
+//            ->orderBy('a.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Genre
+//    public function findOneBySomeField($value): ?AgeRestriction
 //    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

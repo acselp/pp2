@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Genre
 {
+
+    public function __construct()
+    {
+        $this->setActive(true);
+    }
+
+
     /**
      * @var int
      *
@@ -34,6 +41,54 @@ class Genre
      * @ORM\Column(name="active", type="integer", nullable=false)
      */
     private $active;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return int
+     */
+    public function getActive(): int
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param int $active
+     */
+    public function setActive(int $active): void
+    {
+        $this->active = $active;
+    }
 
 
 }
