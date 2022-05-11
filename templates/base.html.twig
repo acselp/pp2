@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+{#        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">#}
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+        {% block stylesheet %}
+
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">#}
+            <link rel="stylesheet" href="./assets/css/bootstrap-reboot.min.css">
+            <link rel="stylesheet" href="./assets/css/bootstrap-grid.min.css">
+            <link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="./assets/css/jquery.mCustomScrollbar.min.css">
+            <link rel="stylesheet" href="./assets/css/nouislider.min.css">
+            <link rel="stylesheet" href="./assets/css/ionicons.min.css">
+            <link rel="stylesheet" href="./assets/css/plyr.css">
+            <link rel="stylesheet" href="./assets/css/photoswipe.css">
+            <link rel="stylesheet" href="./assets/css/default-skin.css">
+            <link rel="stylesheet" href="./assets/css/main.css">
+
+            <link rel="icon" type="image/png" href="./assets/icon/favicon-32x32.png" sizes="32x32">
+            <link rel="apple-touch-icon" href="./assets/icon/favicon-32x32.png">
+            <link rel="apple-touch-icon" sizes="72x72" href="./assets/icon/apple-touch-icon-72x72.png">
+            <link rel="apple-touch-icon" sizes="114x114" href="./assets/icon/apple-touch-icon-114x114.png">
+            <link rel="apple-touch-icon" sizes="144x144" href="./assets/icon/apple-touch-icon-144x144.png">
+
+        {% endblock %}
+
+    </head>
+    <body>
+
+        {% block header %}
+            {{ include('blocks/header.html.twig') }}
+        {% endblock %}
+
+
+
+        {% block body %}{% endblock %}
+
+
+
+        {% block footer %}
+            {{ include('blocks/footer.html.twig') }}
+        {% endblock %}
+
+
+        {% block javascripts %}
+            <script src="./assets/js/jquery-3.3.1.min.js"></script>
+            <script src="./assets/js/bootstrap.bundle.min.js"></script>
+            <script src="./assets/js/owl.carousel.min.js"></script>
+            <script src="./assets/js/jquery.mousewheel.min.js"></script>
+            <script src="./assets/js/jquery.mCustomScrollbar.min.js"></script>
+            <script src="./assets/js/wNumb.js"></script>
+            <script src="./assets/js/nouislider.min.js"></script>
+            <script src="./assets/js/plyr.min.js"></script>
+            <script src="./assets/js/jquery.morelines.min.js"></script>
+            <script src="./assets/js/photoswipe.min.js"></script>
+            <script src="./assets/js/photoswipe-ui-default.min.js"></script>
+            <script src="./assets/js/main.js"></script>
+        {% endblock %}
+
+    </body>
+</html>
