@@ -7,6 +7,7 @@ use App\Entity\Country;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Quality;
+use App\Entity\Reviews;
 use App\Entity\User;
 use App\Entity\UserType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -45,7 +46,8 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Movie', '', Movie::class),
                 MenuItem::linkToCrud('Qualities', '', Quality::class),
                 MenuItem::linkToCrud('Genre', '', Genre::class),
-                MenuItem::linkToCrud('Age restriction', '', AgeRestriction::class)
+                MenuItem::linkToCrud('Age restriction', '', AgeRestriction::class),
+                MenuItem::linkToCrud('Reviews', '', Reviews::class)
             ]);
 
         yield MenuItem::linkToCrud('Countries', 'fa fa-map-marker', Country::class);

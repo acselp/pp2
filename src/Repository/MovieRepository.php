@@ -7,6 +7,7 @@ use App\Entity\Country;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Quality;
+use App\Entity\Reviews;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -61,6 +62,8 @@ class MovieRepository extends ServiceEntityRepository
         //dd($movies);
         return $movies;
     }
+
+
 
 
 

@@ -1,5 +1,8 @@
+
+
 $(document).ready(function () {
 	"use strict"; // start of use strict
+
 
 	/*==============================
 	Menu
@@ -452,6 +455,8 @@ $(document).ready(function () {
 	}
 	$(window).on('load', initializeSecondSlider());
 
+
+
 	/*3*/
 	function initializeThirdSlider() {
 		if ($('#slider__rating').length) {
@@ -471,13 +476,25 @@ $(document).ready(function () {
 
 			var thirdValue = document.getElementById('form__slider-value');
 
+
 			thirdSlider.noUiSlider.on('update', function( values, handle ) {
 				thirdValue.innerHTML = values[handle];
+				$('#review_form_rate').val(values[handle]);
 			});
 		} else {
 			return false;
 		}
 		return false;
 	}
+
+
+
 	$(window).on('load', initializeThirdSlider());
+
+
+
+
+
+
 });
+
