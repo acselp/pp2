@@ -94,6 +94,7 @@ class MovieCrudController extends AbstractCrudController
 
         return [
             BooleanField::new('active', "Active")->hideWhenUpdating()->hideOnForm(),
+            BooleanField::new('new', "New"),
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Title'),
             ChoiceField::new('country', 'Country')

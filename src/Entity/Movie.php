@@ -81,6 +81,11 @@ class Movie
      */
     private $age_restriction;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $new;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -227,6 +232,18 @@ class Movie
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getNew(): ?int
+    {
+        return $this->new;
+    }
+
+    public function setNew(int $new): self
+    {
+        $this->new = $new;
+
+        return $this;
     }
 
 

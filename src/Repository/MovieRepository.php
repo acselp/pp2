@@ -50,16 +50,14 @@ class MovieRepository extends ServiceEntityRepository
         $movies = $this->createQueryBuilder('m')
 
             ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
-            ->select('m, g.id, g.title, g.active')
+            ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+            ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+            ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+            ->select('m, q, a, g, c')
+            ->where('m.active = 1')
             ->getQuery()
-            ->getArrayResult();
+            ->getScalarResult();
 
-//        $res = array();
-//
-//        for ($i = 0; $i < sizeof($movies); $i += 2) {
-//            $res[] = array_merge($movies[$i], $movies[$i + 1]);
-//        }
-        //dd($movies);
         return $movies;
     }
 
@@ -76,7 +74,33 @@ class MovieRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    public function getOneByTitle($title): array
+    {
+        $movies = $this->createQueryBuilder('m')
 
+            ->select('m')
+            ->where('m.active = 1 AND m.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getScalarResult();
+
+        return $movies;
+    }
+
+    public function getAllNew()
+    {
+        $movies = $this->createQueryBuilder('m')
+
+            ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+            ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+            ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+            ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+            ->select('m, q, a, g, c')
+            ->where('m.active = 1 AND m.new = 1')
+            ->getQuery()
+            ->getScalarResult();
+        return $movies;
+    }
 
     public function getOneWithJoin($id): array
     {
@@ -99,6 +123,80 @@ class MovieRepository extends ServiceEntityRepository
 //        }
         //dd($movies);
         return $movies;
+    }
+
+    public function getRate($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->from(Reviews::class, 'r')
+            ->select('avg(r.rate)')
+            ->where('r.movie_id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getScalarResult()[0]
+            ;
+    }
+
+
+    public function getAllWithFilter($genre, $quality)
+    {
+        if($quality === 'All' && $genre === 'All'){
+        return $this->createQueryBuilder('m')
+
+            ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+            ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+            ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+            ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+            ->select('m, q, a, g, c')
+            ->where('m.active = 1')
+            //->where('g.title = :genre and q.title = :quality')
+            //->setParameters(['genre' => $genre, 'quality' => $quality])
+            ->getQuery()
+            ->getScalarResult();
+        }
+        else
+        if($genre == 'All') {
+            return $this->createQueryBuilder('m')
+
+                ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+                ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+                ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+                ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+                ->select('m, q, a, g, c')
+                ->where('m.active = 1')
+                ->where('q.title = :quality')
+                ->setParameters(['quality' => $quality])
+                ->getQuery()
+                ->getScalarResult();
+        }
+        else if($quality == 'All') {
+            return $this->createQueryBuilder('m')
+
+                ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+                ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+                ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+                ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+                ->select('m, q, a, g, c')
+                ->where('m.active = 1')
+                ->where('g.title = :genre')
+                ->setParameters(['genre' => $genre])
+                ->getQuery()
+                ->getScalarResult();
+        }
+
+
+        return $this->createQueryBuilder('m')
+
+            ->innerJoin(Genre::class, 'g', 'WITH', 'm.genre_id = g.id')
+            ->innerJoin(Quality::class, 'q', 'WITH', 'm.quality = q.id')
+            ->innerJoin(AgeRestriction::class, 'a', 'WITH', 'm.age_restriction = a.id')
+            ->innerJoin(Country::class, 'c', 'WITH', 'm.country = c.id')
+            ->select('m, q, a, g, c')
+            ->where('m.active = 1')
+            ->where('g.title = :genre and q.title = :quality')
+            ->setParameters(['genre' => $genre, 'quality' => $quality])
+            ->getQuery()
+            ->getScalarResult();
     }
 
 //    /**

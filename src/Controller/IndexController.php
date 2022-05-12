@@ -19,21 +19,28 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(ReviewsRepository $reviewsRepo): Response
     {
-        $res = $this->moviesRepo->getAllWithJoin();
+        $res = $this->moviesRepo->getAllNew();
         $movies = array();
         //dd($res);
         foreach ($res as $r) {
             //dd($r);
-            $r['avg_rate'] = $reviewsRepo->getAverageRateForMovie($r[0]['id']);
+            $r['avg_rate'] = $reviewsRepo->getAverageRateForMovie($r['m_id']);
             $movies[] = $r;
         }
 
-        //dd($movies);
+        $res = $this->moviesRepo->getAllWithJoin();
+        $moviesAll = array();
+        foreach ($res as $r) {
+            //dd($r);
+            $r['avg_rate'] = $reviewsRepo->getAverageRateForMovie($r['m_id']);
+            $moviesAll[] = $r;
+        }
 
-
+        //dd($moviesAll);
 
         return $this->render('index/index.html.twig',
-            ['movies' => $movies]
+            ['movies' => $movies,
+                'moviesAll' => $moviesAll]
         );
     }
 }

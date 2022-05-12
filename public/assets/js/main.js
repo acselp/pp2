@@ -491,10 +491,74 @@ $(document).ready(function () {
 
 	$(window).on('load', initializeThirdSlider());
 
-
-
-
-
-
 });
+
+
+$(document).ready(function(){
+	$("#filter__btn").click(function(){
+		let genre = $("#genre_input").val();
+		let quality = $("#quality_input").val();
+
+		$.ajax({
+			url:'/catalog/ajax',
+			type:'GET',
+			dataType:'json',
+			data:{genre:genre, quality:quality, task:'task_filter'},
+
+			success: function(response){
+				movie = JSON.parse(response);
+
+				$('.catalog .row').html('');
+
+				for(let i = 0; i < movie.length; i++) {
+
+					$('.catalog .row').append(
+
+						"<div class='col-6 col-sm-4 col-lg-3 col-xl-2'>"+
+						"<div class='card'>"+
+						"<div class='card__cover'>"+
+						"<img src='/upload/movies/image/" + movie[i].m_image + "' alt=''>"+
+						"<a href='/movie/detail/" + movie[i].m_id + "' class='card__play'>"+
+						"<i class='icon ion-ios-play'></i>"+
+						"</a>"+
+						"</div>"+
+						"<div class='card__content'>"+
+						"<h3 class='card__title'><a href='#'>" + movie[i].m_title + "</a></h3>"+
+						"<span class='card__category'>"+
+						"<a href='#'>" + movie[i].g_title + "</a>"+
+						"</span>"+
+						"<span class='card__rate'><i class='icon ion-ios-star'></i>" + movie[i].rate + "</span>"+
+						"</div>"+
+						"</div>"+
+						"</div>")
+				}
+
+
+
+				//alert(res[0].m_image);
+			}
+		});
+	});
+
+	$("#search_button").click(function(){
+		let req = $("#search_input").val();
+		//alert(req);
+		$.ajax({
+			url:'/search',
+			type:'GET',
+			dataType:'json',
+			data:{ req:req },
+
+			success: function(response){
+				res = JSON.parse(response);
+				//alert(response);
+				window.location.replace('/movie/detail/' + res[0].m_id);
+			}
+		});
+	});
+});
+
+
+
+
 
